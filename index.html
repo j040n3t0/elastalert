@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>ElastAlert</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- AJAX import -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <!-- JS, Popper.js, and jQuery -->  
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+       <!-- Artigo: https://gitbrent.github.io/bootstrap4-toggle/ -->
+       <script>
+            $(document).ready(function(){
+                $("#log").click(function(){
+                    $("#output").toggle();
+                });
+            });
+            $(document).ready(function(){
+                $("#config").click(function(){
+                    $("#configSystem").toggle();
+                });
+            });
+        </script>
+        <script>
+            //Funcao adiciona uma nova linha na tabela
+            function adicionaLinha(idTabela) {
+
+                var tabela = document.getElementById(idTabela);
+                var numeroLinhas = tabela.rows.length;
+                var linha = tabela.insertRow(numeroLinhas);
+                var celula1 = linha.insertCell(0);
+                var celula2 = linha.insertCell(1);   
+                var celula3 = linha.insertCell(2);
+                var celula4 = linha.insertCell(3);
+                var celula5 = linha.insertCell(4);
+                var celula6 = linha.insertCell(5);
+                var celula7 = linha.insertCell(6);
+                var celula8 = linha.insertCell(7); 
+                celula1.innerHTML = '<label>Index</label>'; 
+                celula2.innerHTML = '<input type="text" class="form-control px-md-5">'; 
+                celula3.innerHTML = '<label>Field</label>'; 
+                celula4.innerHTML = '<input type="text" class="form-control px-md-5">'; 
+                celula5.innerHTML = '<label>Value</label>'; 
+                celula6.innerHTML = '<input type="text" class="form-control px-md-5">'; 
+                celula7.innerHTML = '<input type="checkbox" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm">';
+                celula8.innerHTML = "<button onclick='removeLinha(this)'>Remover</button>";
+
+            }
+            
+            // funcao remove uma linha da tabela
+            function removeLinha(linha) {
+              var i=linha.parentNode.parentNode.rowIndex;
+              document.getElementById('itens').deleteRow(i);
+            }            
+        </script>  
+</head>
+    </head>
+    <body>
+        <h2>Elast Alert</h2>
+        <table id="itens" style="height: 100px;">
+            <tbody>
+              <tr>
+                <td class="align-middle">
+                    <label>Index</label>
+                </td>
+                <td class="align-middle">
+                    <input type="text" class="form-control px-md-5">
+                </td>
+                <td class="align-middle">
+                    <label>Field</label>
+                </td>
+                <td class="align-middle">
+                    <input type="text" class="form-control px-md-5"> 
+                </td>
+                <td class="align-middle">
+                    <label>Value</label>
+                </td>
+                <td class="align-middle">
+                    <input type="text" class="form-control px-md-5">
+                </td>
+                <td class="align-middle">
+                    <input type="checkbox" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm">
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    
+        <button class="btn btn-lg btn-success" onclick="adicionaLinha('itens')">+</button>
+
+        <p><p>
+        <div id="config" class="form-label-group col-sm-4">
+            <label>Config server </label> <input type="checkbox" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="xs" data-on="Show" data-off="Hide">                
+        </div>
+        <p><p>
+        <div class="form-label-group col-sm-6" id="configSystem" style="display: none;">
+            Address <input type="text" class="form-control col-sm-8">
+            Time Refresh <input type="text" class="form-control col-sm-8">
+            BOT Token <input type="text" class="form-control col-sm-8">
+            <br />
+            <input type="button" value="Salvar" class="btn btn-lg btn-success btn-block col-sm-2">
+            <br />
+        </div>
+        <div id="log" class="form-label-group col-sm-4">
+            Enable Console Log <input type="checkbox" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="xs">                
+        </div>
+        <div class="form-label-group col-sm-4" id="output" style="display: none;">
+            <p id="myLog"></p>
+        </div>
+        <script>
+            window.console = {
+            log: function(str){
+              var node = document.createElement("div");
+              node.appendChild(document.createTextNode(str));
+              document.getElementById("myLog").appendChild(node);
+            }
+          }
+          console.log('hi, there');
+        </script>
+        
+    </body>
+</html>
